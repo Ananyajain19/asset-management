@@ -1,0 +1,68 @@
+.box{
+    width: 225px;
+ height: 115px;
+ flex-shrink: 0;
+ background-color: white;
+filter: drop-shadow(0px 14px 30px rgba(0, 0, 0, 0.12));
+border-radius: 10px;
+box-shadow: 5px 10px 18px #e7e3e3;
+margin: 20px
+}
+ 
+.box:hover{
+    background-color: #6200EE;
+    box-shadow: 5px 10px 18px #c6c5c5
+}
+.assets-box{
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+   
+}
+.box {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+.box-img{
+    height: 55px;
+    width: 55px;
+    align-items: center;
+    margin-right: 6px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #dccaf4;
+}
+.box-info{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+   
+}
+.box-heading{
+    
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+}
+.box-total{
+   
+font-size: 32px;
+font-style: normal;
+ font-weight: bold;
+}
+.box-percent{
+    font-size: 10px;
+}
+.box:hover {
+    color: white; 
+    transition: color 0.2s ease; 
+  }
+
+  .box:hover .box-img {
+    background-color: white; /* Change the background color to white on hover */
+  }

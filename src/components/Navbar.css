@@ -1,0 +1,53 @@
+.NavBar{
+    display: flex;
+    justify-content: space-between;
+    padding: 6px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.24);
+    background-color: white;
+}
+.header-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header-logo-img{
+    margin-right: 3px;
+}
+.line{
+    height: 0px;
+    width: auto;
+    border: 1px solid rgb(128, 6, 190);
+}
+.header-options{
+    display: flex;
+   column-gap: 2rem;
+   align-items: center;
+   justify-content: center;
+   font-family: Roboto;
+}
+.profile-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+    margin-right:1rem;
+}
+.left{
+    display: flex;
+    column-gap: 3rem;
+    margin-left: 15px;
+}
+.upper-title{
+    color: rgb(128, 6, 190);
+     font-weight: bold;
+     font-family: poppins;
+}
+.lower-title{
+    color: rgb(128, 6, 190);
+    font-family: poppins;
+
+}
+.profile-name{
+    font-weight: bold;
+    font-size: 12px;
+}

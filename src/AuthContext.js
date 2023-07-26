@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -7,6 +8,8 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+    
+    const navigate= useNavigate();
   const [token, setToken] = useState('');
   const [assetInfo,setAssetInfo] = useState();
   useEffect(() => {
@@ -56,7 +59,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo }}>
+    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate }}>
       {children}
     </AuthContext.Provider>
   );

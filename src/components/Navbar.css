@@ -4,6 +4,11 @@
     padding: 6px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.24);
     background-color: white;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    right: 0;
+
 }
 .header-logo{
     display: flex;
@@ -13,6 +18,11 @@
 .header-logo-img{
     margin-right: 3px;
 }
+
+.header-logo-img:hover{
+    cursor: pointer;
+}
+
 .line{
     height: 0px;
     width: auto;
@@ -50,4 +60,8 @@
 .profile-name{
     font-weight: bold;
     font-size: 12px;
+}
+
+.assets-list:hover , .employer-list:hover , .accessed-by{
+    cursor: pointer;
 }

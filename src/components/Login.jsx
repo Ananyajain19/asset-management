@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import man from '../images/man.png'
 import Button from '@mui/material/Button'
-import { useNavigate } from 'react-router-dom'
+
 import { useAuth } from '../AuthContext'
 import './Login.css'
 import { useState } from 'react'
@@ -11,9 +11,9 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const { token, saveToken } = useAuth();
+  const {  saveToken ,navigate } = useAuth();
 
-  const navigate= useNavigate();
+  
 
  
   const handleLogin = async () => {

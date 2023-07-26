@@ -3,7 +3,12 @@ import logo from '../images/logo.png'
 import girl from '../images/girl.png'
 import arrow from '../images/arrow down.png'
 import './Navbar.css'
+import { useAuth } from '../AuthContext'
+
 const Navbar = () => {
+    
+  const {navigate} = useAuth();
+
   return (
    <div className='NavBar'>
         <div className='left'>
@@ -18,9 +23,9 @@ const Navbar = () => {
         </div>
         
         <div className='header-options' >
-            <div>Assets List</div>
-            <div>Employer List</div>
-            <div>Accessed By</div>
+            <div className='assets-list' onClick={()=> navigate('/dashboard/assetList')}>Assets List</div>
+            <div className='employer-list'>Employer List</div>
+            <div className='accessed-by'>Accessed By</div>
         </div>
         </div>
         <div className='profile-img'>

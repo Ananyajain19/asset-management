@@ -12,6 +12,7 @@ export function AuthProvider({ children }) {
     const navigate= useNavigate();
   const [token, setToken] = useState('');
   const [assetInfo,setAssetInfo] = useState();
+  const [getAsset , setGetAsset] =useState();
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -51,6 +52,33 @@ export function AuthProvider({ children }) {
       
 
     fetchUserData();
+    
+    const fetchAssetData = async ()=>{
+      
+        try {
+          const response = await fetch('https://devassetapi.remotestate.com/asset-management/user/asset', {
+            method: 'GET',
+            headers: {
+              'Authorization': `${token}`,
+              'Content-Type': 'application/json',
+            },
+          });
+  
+          if (response.ok) {
+            const data = await response.json();
+            setGetAsset(data)
+          } else {
+            
+            console.error('Request failed:', response.statusText);
+          }
+        } catch (error) {
+          
+          console.error('Error:', error);
+        }
+      };
+
+      fetchAssetData();
+
 }, [token]);
 
   const clearToken = () => {
@@ -59,7 +87,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate }}>
+    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset }}>
       {children}
     </AuthContext.Provider>
   );

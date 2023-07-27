@@ -8,7 +8,7 @@
     z-index: 100;
     left: 0;
     right: 0;
-
+   
 }
 .header-logo{
     display: flex;
@@ -63,5 +63,12 @@
 }
 
 .assets-list:hover , .employer-list:hover , .accessed-by{
+    cursor: pointer;
+}
+.assets-list:active{
+    color: rgb(170, 31, 216);
+    font-weight: bold;
+}
+.navbar-arrow:hover{
     cursor: pointer;
 }

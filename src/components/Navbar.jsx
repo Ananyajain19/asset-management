@@ -7,7 +7,12 @@ import { useAuth } from '../AuthContext'
 
 const Navbar = () => {
     
-  const {navigate} = useAuth();
+  const {navigate,clearToken} = useAuth();
+  
+   const handleLogout =() => {
+    clearToken();
+    navigate('/')
+   }
 
   return (
    <div className='NavBar'>
@@ -23,7 +28,7 @@ const Navbar = () => {
         </div>
         
         <div className='header-options' >
-            <div className='assets-list' onClick={()=> navigate('/dashboard/assetList')}>Assets List</div>
+            <div className='assets-list' onClick={()=> navigate('/assetList')}>Assets List</div>
             <div className='employer-list'>Employer List</div>
             <div className='accessed-by'>Accessed By</div>
         </div>
@@ -31,7 +36,7 @@ const Navbar = () => {
         <div className='profile-img'>
             <div className='profile-name'>Nitya Jain </div>
             <img src={girl} alt="girl" style={{borderRadius:"100%"}}/>
-            <img src={arrow} alt="" />
+            <img src={arrow} alt="arrow" onClick={handleLogout} className='navbar-arrow' />
             </div>
       </div>
    

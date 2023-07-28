@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Navbar from './Navbar';
 import { useAuth } from '../AuthContext';
 import search from '../images/search.jpg'
 import cross from '../images/cross.png'
 import './AssetLists.css'
 import CircularProgress from '@mui/material/CircularProgress';
-import { useState } from 'react'; 
 import plus from '../images/plus.png'
 
- function AddAsset(){
+ function AddAsset({setButton}){
     return(
       <div className='new-asset'>
         <div className='new-asset-header'>
           <div>Asset Details</div>
-          <img src={cross} alt="cross" />
+          <img src={cross} alt="cross" onClick={()=>setButton(false)} />
         </div>
         <div className='assign-asset'>
           Assign Asset
@@ -93,7 +92,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
         }} />
         </div>
         <div className='right-header'>
-           <div className='check-box'><input type="checkbox" style={{marginBottom:'8px'}} onChange={(e)=>{setChecked(e.target.checked)}} /> Available</div>
+           <div className='check-box'><input type="checkbox" value = {checked}style={{marginBottom:'8px'}} onChange={(e)=>{setChecked(e.target.checked)}} /> Available</div>
            
             <fieldset>
               <legend>Assets Type</legend>
@@ -137,7 +136,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
       
       <div>
         <AssetEntry getAsset={getAsset} />
-        {button && <AddAsset/>}
+       
       </div>
 
       </div>
@@ -161,7 +160,9 @@ const AssetsList = () => {
       <div className='main'>
       <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton}/>
       </div>
-      
+      <div className='modal'>
+      {button && <AddAsset setButton={setButton}/>}
+      </div>
     </div>
   );
 };

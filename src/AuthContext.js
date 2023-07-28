@@ -16,7 +16,8 @@ export function AuthProvider({ children }) {
   const [input , setInput ] = useState('');
    const [checked ,setChecked] =useState(false);
    const [button , setButton] = useState(false)
-
+   const [assetType , setAssetType] = useState ('')
+    //  const [Options , setOptions] = useState (false)
    useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -62,7 +63,35 @@ export function AuthProvider({ children }) {
 }, [token]);
 
 useEffect(() => {
-   
+  const fetchAssetData = async ()=>{
+      
+    try {
+  
+      const params = {
+        name: input,
+        available: checked,
+        limit: 10
+      }
+      const response = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset?${new URLSearchParams(params).toString()}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setGetAsset(data.GetAsset)
+      } else {
+        
+        console.error('Asset Request failed:', response.statusText);
+      }
+    } catch (error) {
+      
+      console.error('Error:', error);
+    }
+  };
   const timer = setTimeout(() => {
     fetchAssetData();
   }, 300);
@@ -72,35 +101,7 @@ useEffect(() => {
   };
 }, [token,input,checked]);
 
-const fetchAssetData = async ()=>{
-      
-  try {
 
-    const params = {
-      name: input,
-      available: checked,
-      limit: 10
-    }
-    const response = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset?${new URLSearchParams(params).toString()}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      setGetAsset(data.GetAsset)
-    } else {
-      
-      console.error('Asset Request failed:', response.statusText);
-    }
-  } catch (error) {
-    
-    console.error('Error:', error);
-  }
-};
  
   const clearToken = () => {
     localStorage.removeItem('token');
@@ -108,7 +109,7 @@ const fetchAssetData = async ()=>{
   };
 
   return (
-    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput ,checked ,setChecked , button , setButton}}>
+    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput ,checked ,setChecked , button , setButton,assetType,setAssetType}}>
       {children}
     </AuthContext.Provider>
   );

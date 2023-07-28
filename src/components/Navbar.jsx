@@ -1,17 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../images/logo.png'
 import girl from '../images/girl.png'
 import arrow from '../images/arrow down.png'
 import './Navbar.css'
 import { useAuth } from '../AuthContext'
 
+
+function ArrowDropdown ({clearToken,navigate}){
+    const handleLogout =() => {
+        clearToken();
+        navigate('/')
+       }
+    return(
+        <div className='logout-button' onClick={handleLogout}>Logout</div>
+    )
+}
+
 const Navbar = () => {
     
   const {navigate,clearToken} = useAuth();
+  const[Arrow , setArrow] = useState(false) 
   
-   const handleLogout =() => {
-    clearToken();
-    navigate('/')
+   const handleArrow=()=>{
+    if(Arrow){
+        setArrow(false)
+    }else{
+        setArrow(true)
+    }
    }
 
   return (
@@ -36,7 +51,10 @@ const Navbar = () => {
         <div className='profile-img'>
             <div className='profile-name'>Nitya Jain </div>
             <img src={girl} alt="girl" style={{borderRadius:"100%"}}/>
-            <img src={arrow} alt="arrow" onClick={handleLogout} className='navbar-arrow' />
+            
+            <img src={arrow} alt="arrow" onClick={handleArrow} className='navbar-arrow' />
+            <div>{Arrow&&<ArrowDropdown clearToken={clearToken} navigate={navigate}/>}</div>
+            
             </div>
       </div>
    

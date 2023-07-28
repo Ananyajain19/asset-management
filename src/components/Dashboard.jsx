@@ -19,7 +19,6 @@ import mobile from '../images/mobile.jpg'
 import sim from '../images/sim.jpg'
 
 
-
 function InfoBox({assetImage, assetDiscription, assetCount, arrow, assetRaise}){
     return(
         <div className='box'>

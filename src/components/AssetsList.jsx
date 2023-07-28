@@ -6,18 +6,27 @@ import cross from '../images/cross.png'
 import './AssetLists.css'
 import CircularProgress from '@mui/material/CircularProgress';
 import plus from '../images/plus.png'
+import Modal from './Modal';
 
- function AddAsset({setButton}){
+
+
+
+ function AddAsset({setButton,assetType,setAssetType, Options , setOptions }){
+
+   
     return(
       <div className='new-asset'>
         <div className='new-asset-header'>
-          <div>Asset Details</div>
+          <div className='heading'>Asset Details</div>
           <img src={cross} alt="cross" onClick={()=>setButton(false)} />
         </div>
         <div className='assign-asset'>
-          Assign Asset
-          <select className='select-asset' >
-            <option value="Assets Type" hidden>All</option>
+          <div style={{fontWeight:'bold'}}>Assign Asset</div>
+          <select className='select-asset' value={assetType} style={{height:'40px' , width:'300px' ,backgroundColor:'#dce6f9'}} onChange={(e)=>
+          {setAssetType(e.target.value)
+            // setOptions(true)
+          }}>
+            <option value="All" >All</option>
             <option value="Laptop">Laptop</option>
             <option value="Mouse">Mouse</option>
             <option value="Pen Drive">Pen Drive</option>
@@ -26,6 +35,7 @@ import plus from '../images/plus.png'
             <option value="Sim">Sim Card</option>
            </select>
         </div>
+        <Modal/>
       </div>
     )
  }
@@ -96,7 +106,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
            
             <fieldset>
               <legend>Assets Type</legend>
-           <select className='select' >
+           <select className='select-type' >
             <option value="Assets Type" hidden>All</option>
             <option value="Laptop">Laptop</option>
             <option value="Mouse">Mouse</option>
@@ -108,7 +118,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
            </fieldset>
            <fieldset>
            <legend>Assets Type</legend>
-           <select name="Warranty" className='select'>
+           <select name="Warranty" className='select-type'>
             <option value="Warranty" hidden>All</option>
             <option value="None">None</option>
             <option value="1 month">Expires in 1 month</option>
@@ -118,7 +128,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
             
            </select>
            </fieldset>
-           <button className='add-button'><img src={plus} alt="plus"  onClick={handleClick} />Add Asset</button>
+           <button className='add-button' onClick={handleClick}><img src={plus} alt="plus"   />Add Asset</button>
         </div>
       </div>
 
@@ -145,8 +155,8 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
 
 const AssetsList = () => {
   // const [input , setInput ] = useState('')
-  
-    const {getAsset ,input ,setInput ,checked , setChecked,button,setButton} = useAuth()
+     
+    const {getAsset ,input ,setInput ,checked , setChecked,button,setButton,assetType,setAssetType} = useAuth()
     console.log(getAsset)
     if(!getAsset){
       return(
@@ -158,10 +168,10 @@ const AssetsList = () => {
     <div>
       <Navbar />
       <div className='main'>
-      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton}/>
+      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton} />
       </div>
       <div className='modal'>
-      {button && <AddAsset setButton={setButton}/>}
+      {button && <AddAsset setButton={setButton} assetType={assetType} setAssetType={setAssetType} />}
       </div>
     </div>
   );

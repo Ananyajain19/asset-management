@@ -1,0 +1,14 @@
+.data-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 2rem;
+
+}
+
+.asset-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    text-align: left;
+}

@@ -13,8 +13,11 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState('');
   const [assetInfo,setAssetInfo] = useState();
   const [getAsset , setGetAsset] =useState();
-  
-  useEffect(() => {
+  const [input , setInput ] = useState('');
+   const [checked ,setChecked] =useState(false);
+
+
+   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
@@ -54,41 +57,57 @@ export function AuthProvider({ children }) {
 
     fetchUserData();
     
-    const fetchAssetData = async ()=>{
-      
-        try {
-          const response = await fetch('https://devassetapi.remotestate.com/asset-management/user/asset', {
-            method: 'GET',
-            headers: {
-              'Authorization': `${token}`,
-              'Content-Type': 'application/json',
-            },
-          });
-  
-          if (response.ok) {
-            const data = await response.json();
-            setGetAsset(data.GetAsset)
-          } else {
-            
-            console.error('Asset Request failed:', response.statusText);
-          }
-        } catch (error) {
-          
-          console.error('Error:', error);
-        }
-      };
-
-      fetchAssetData();
+    
 
 }, [token]);
 
+useEffect(() => {
+   
+  const timer = setTimeout(() => {
+    fetchAssetData();
+  }, 300);
+
+  return () => {
+    clearTimeout(timer);
+  };
+}, [token,input]);
+
+const fetchAssetData = async ()=>{
+      
+  try {
+
+    const params = {
+      name: input,
+      limit: 10
+    }
+    const response = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset?${new URLSearchParams(params).toString()}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setGetAsset(data.GetAsset)
+    } else {
+      
+      console.error('Asset Request failed:', response.statusText);
+    }
+  } catch (error) {
+    
+    console.error('Error:', error);
+  }
+};
+ 
   const clearToken = () => {
     localStorage.removeItem('token');
     setToken('');
   };
 
   return (
-    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset  }}>
+    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput }}>
       {children}
     </AuthContext.Provider>
   );

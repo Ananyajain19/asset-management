@@ -1,52 +1,68 @@
-import React from 'react';
-import { BiSearch } from 'react-icons/bi';
+import React, { useEffect } from 'react';
 import Navbar from './Navbar';
 import { useAuth } from '../AuthContext';
-import {RxCross2} from 'react-icons/rx'
 import search from '../images/search.jpg'
 import cross from '../images/cross.png'
 import './AssetLists.css'
-import { border } from '@mui/system';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react'; 
 import plus from '../images/plus.png'
-// function HandleSearch (getAsset) {
-   
-//     const filtered = getAsset.map((value)=>{console.log(value.AssetType)})
-// }
+
 
 function AssetEntry ({getAsset}) {
-    return(
-      <div >
-        {getAsset.map((item)=>{
-          return (
-            <div className='entry-row'>
-            <div className='entry-data'>{item.brand}</div>
-            <div className='entry-data'>{item.model}</div>
-            <div className='entry-data'>{item.serialNo}</div>
-            <div className='entry-data'>{item.AssetType}</div>
-            <div className='entry-data'>{item.purchasedDate}</div>
-            <div className='entry-data'>{item.warrantyStartDate}</div>
-            <div className='entry-data'>{item.warrantyExpiryDate}</div>
-            <div className='entry-data'>{item.assignedTo}</div>
-            <div className='entry-data'>{item.status}</div>
-            </div>
-          )
-        })}
-      </div>
+  
+  return (
+    <table className='entries-table'>
+      <thead>
+        <tr>
+          <th>Make</th>
+          <th>Model</th>
+          <th>Serial Number</th>
+          <th>Asset Type</th>
+          <th>Date Purchased</th>
+          <th>Warranty Start Date</th>
+          <th>Warranty Expires</th>
+          <th>Assigned To</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {getAsset.map((value) => (
+          <tr key={value.id}>
+            <td className='asset-make'>{value.brand}</td>
+            <td>{value.model}</td>
+            <td>{value.serialNo}</td>
+            <td className='asset-type'>{value.AssetType}</td>
+            <td>{value.purchasedDate}</td>
+            <td>{value.warrantyStartDate}</td>
+            <td>{value.warrantyExpiryDate}</td>
+            <td>{value.assignedTo?value.assignedTo: "Not Assigned"}</td>
+            <td>{value.status}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  
+    
     );
 }
 
 function BigComponent ({input , setInput ,getAsset}) {
+    
+     
+      
+  
   return(
     <div className='Big-component'>
 
     
     <div className='assets-info-component' >
         <div className='component-search'>
-          <img src={search} alt="search"  style={{height:'18px' , paddingBottom:'6px'}}/>
-          <input type="text" value={input} placeholder='Search' style={{height:'22px' , width: '250px', backgroundColor: 'white' , border:'1px solid #fff'}} onChange={(e)=>setInput(e.target.value)} className='input' />
-          <img src={cross} alt="cross" style={{height:'18px' ,paddingBottom:'6px' }} />
+          <img src={search} alt="search" className='search'  style={{height:'18px' , paddingBottom:'6px'}}/>
+          <input type="text" value={input} placeholder='Search' style={{height:'22px' , width: '250px', backgroundColor: 'white' , border:'1px solid #fff'}} onChange={(e)=>{setInput(e.target.value)}} className='input' />
+          <img src={cross} alt="cross" className = 'cross' style={{height:'18px' ,paddingBottom:'6px' }} onClick={()=>{setInput('')
+          
+        }} />
         </div>
         <div className='right-header'>
            <div className='check-box'><input type="checkbox" style={{marginBottom:'8px'}}  /> Available</div>
@@ -79,7 +95,7 @@ function BigComponent ({input , setInput ,getAsset}) {
         </div>
       </div>
 
-      <div className='purple-header'>
+      {/* <div className='purple-header'>
         <div>Make</div>
         <div>Model</div>
         <div>Serial Number</div>
@@ -89,10 +105,10 @@ function BigComponent ({input , setInput ,getAsset}) {
         <div>Warranty Expires</div>
         <div>Assigned To</div>
         <div>Action</div>
-      </div>
+      </div> */}
       
       <div>
-        <AssetEntry getAsset={getAsset}/>
+        <AssetEntry getAsset={getAsset} />
       </div>
 
       </div>
@@ -100,8 +116,9 @@ function BigComponent ({input , setInput ,getAsset}) {
 }
 
 const AssetsList = () => {
-  const [input , setInput ] = useState('')
-    const {getAsset } = useAuth()
+  // const [input , setInput ] = useState('')
+  
+    const {getAsset ,input ,setInput} = useAuth()
     console.log(getAsset)
     if(!getAsset){
       return(

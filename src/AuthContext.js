@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   const [getAsset , setGetAsset] =useState();
   const [input , setInput ] = useState('');
    const [checked ,setChecked] =useState(false);
-
+   const [button , setButton] = useState(false)
 
    useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -70,7 +70,7 @@ useEffect(() => {
   return () => {
     clearTimeout(timer);
   };
-}, [token,input]);
+}, [token,input,checked]);
 
 const fetchAssetData = async ()=>{
       
@@ -78,6 +78,7 @@ const fetchAssetData = async ()=>{
 
     const params = {
       name: input,
+      available: checked,
       limit: 10
     }
     const response = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset?${new URLSearchParams(params).toString()}`, {
@@ -107,7 +108,7 @@ const fetchAssetData = async ()=>{
   };
 
   return (
-    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput }}>
+    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput ,checked ,setChecked , button , setButton}}>
       {children}
     </AuthContext.Provider>
   );

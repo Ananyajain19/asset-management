@@ -28,7 +28,7 @@ const Navbar = () => {
         </div>
         
         <div className='header-options' >
-            <div className='assets-list' onClick={()=> navigate('/assetList')}>Assets List</div>
+            <div className='assets-list' onClick={()=> navigate('/dashboard/assetList')}>Assets List</div>
             <div className='employer-list'>Employer List</div>
             <div className='accessed-by'>Accessed By</div>
         </div>

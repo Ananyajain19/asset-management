@@ -8,6 +8,28 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react'; 
 import plus from '../images/plus.png'
 
+ function AddAsset(){
+    return(
+      <div className='new-asset'>
+        <div className='new-asset-header'>
+          <div>Asset Details</div>
+          <img src={cross} alt="cross" />
+        </div>
+        <div className='assign-asset'>
+          Assign Asset
+          <select className='select-asset' >
+            <option value="Assets Type" hidden>All</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Mouse">Mouse</option>
+            <option value="Pen Drive">Pen Drive</option>
+            <option value="Hard Drive">Hard Drive</option>
+            <option value="Mobile">Mobile</option>
+            <option value="Sim">Sim Card</option>
+           </select>
+        </div>
+      </div>
+    )
+ }
 
 function AssetEntry ({getAsset}) {
   
@@ -47,9 +69,15 @@ function AssetEntry ({getAsset}) {
     );
 }
 
-function BigComponent ({input , setInput ,getAsset}) {
+function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , setButton}) {
     
-     
+  const handleClick = () => {
+    if (button) {
+      setButton(false)
+    } else {
+      setButton(true);
+    }
+  };
       
   
   return(
@@ -65,7 +93,7 @@ function BigComponent ({input , setInput ,getAsset}) {
         }} />
         </div>
         <div className='right-header'>
-           <div className='check-box'><input type="checkbox" style={{marginBottom:'8px'}}  /> Available</div>
+           <div className='check-box'><input type="checkbox" style={{marginBottom:'8px'}} onChange={(e)=>{setChecked(e.target.checked)}} /> Available</div>
            
             <fieldset>
               <legend>Assets Type</legend>
@@ -91,7 +119,7 @@ function BigComponent ({input , setInput ,getAsset}) {
             
            </select>
            </fieldset>
-           <button className='add-button'><img src={plus} alt="plus" />Add Asset</button>
+           <button className='add-button'><img src={plus} alt="plus"  onClick={handleClick} />Add Asset</button>
         </div>
       </div>
 
@@ -109,6 +137,7 @@ function BigComponent ({input , setInput ,getAsset}) {
       
       <div>
         <AssetEntry getAsset={getAsset} />
+        {button && <AddAsset/>}
       </div>
 
       </div>
@@ -118,7 +147,7 @@ function BigComponent ({input , setInput ,getAsset}) {
 const AssetsList = () => {
   // const [input , setInput ] = useState('')
   
-    const {getAsset ,input ,setInput} = useAuth()
+    const {getAsset ,input ,setInput ,checked , setChecked,button,setButton} = useAuth()
     console.log(getAsset)
     if(!getAsset){
       return(
@@ -130,8 +159,9 @@ const AssetsList = () => {
     <div>
       <Navbar />
       <div className='main'>
-      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset}/>
+      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton}/>
       </div>
+      
     </div>
   );
 };

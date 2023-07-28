@@ -14,7 +14,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Login/>}></Route>
       <Route path='/dashboard' element={<Dashboard/>}></Route>
-      <Route path='/assetList' element={<AssetsList/>}></Route>
+      <Route path='/dashboard/assetList' element={<AssetsList/>}></Route>
     </Routes>
     </AuthProvider>  
     </div>

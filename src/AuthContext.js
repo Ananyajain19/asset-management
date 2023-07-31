@@ -16,7 +16,12 @@ export function AuthProvider({ children }) {
   const [input , setInput ] = useState('');
    const [checked ,setChecked] =useState(false);
    const [button , setButton] = useState(false)
-   const [assetType , setAssetType] = useState ('')
+   const [assetType , setAssetType] = useState ('none')
+   const [formData, setFormData] = useState({
+   
+  });
+
+  
     //  const [Options , setOptions] = useState (false)
    useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -109,7 +114,7 @@ useEffect(() => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput ,checked ,setChecked , button , setButton,assetType,setAssetType}}>
+    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput ,checked ,setChecked , button , setButton,assetType,setAssetType,formData,setFormData}}>
       {children}
     </AuthContext.Provider>
   );

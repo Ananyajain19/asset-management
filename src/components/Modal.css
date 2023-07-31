@@ -51,3 +51,6 @@ background: var(--primary-color, #6200EE);
     display: flex;
     justify-content: space-around;
 }
+button:hover{
+    cursor: pointer;
+}

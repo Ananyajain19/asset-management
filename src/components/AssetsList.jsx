@@ -7,11 +7,11 @@ import './AssetLists.css'
 import CircularProgress from '@mui/material/CircularProgress';
 import plus from '../images/plus.png'
 import Modal from './Modal';
+import ToggleButton from '@mui/material/ToggleButton';
 
 
 
-
- function AddAsset({setButton,assetType,setAssetType, Options , setOptions }){
+ function AddAsset({setButton,assetType,setAssetType, actionButton,setActionButton }){
 
    
     return(
@@ -33,7 +33,7 @@ import Modal from './Modal';
             <option value="pen drive">Pen Drive</option>
             <option value="hard disk">Hard Drive</option>
             <option value="mobile">Mobile</option>
-            <option value="sim card">Sim Card</option>
+            <option value="sim">Sim Card</option>
            </select>
         </div>
         <Modal/>
@@ -56,6 +56,7 @@ function AssetEntry ({getAsset}) {
           <th>Warranty Expires</th>
           <th>Assigned To</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -70,6 +71,7 @@ function AssetEntry ({getAsset}) {
             <td>{value.warrantyExpiryDate}</td>
             <td>{value.assignedTo?value.assignedTo: "Not Assigned"}</td>
             <td>{value.status}</td>
+            <td><ToggleButton style={{height:'20px', width:'15px',textAlign:'center'}}>...</ToggleButton></td>
           </tr>
         ))}
       </tbody>
@@ -157,7 +159,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
 const AssetsList = () => {
   // const [input , setInput ] = useState('')
      
-    const {getAsset ,input ,setInput ,checked , setChecked,button,setButton,assetType,setAssetType} = useAuth()
+    const {getAsset ,input ,setInput ,checked , setChecked,button,setButton,assetType,setAssetType,actionButton,setActionButton} = useAuth()
     console.log(getAsset)
     if(!getAsset){
       return(
@@ -172,7 +174,7 @@ const AssetsList = () => {
       <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton} />
       </div>
       <div className='modal'>
-      {button && <AddAsset setButton={setButton} assetType={assetType} setAssetType={setAssetType} />}
+      {button && <AddAsset setButton={setButton} assetType={assetType} setAssetType={setAssetType} actionButton={actionButton} setActionButton={setActionButton} />}
       </div>
     </div>
   );

@@ -18,7 +18,8 @@ import Modal from './Modal';
       <div className='new-asset'>
         <div className='new-asset-header'>
           <div className='heading'>Asset Details</div>
-          <img src={cross} alt="cross" onClick={()=>setButton(false)} />
+          <img src={cross} alt="cross" onClick={()=>{setButton(false)
+          setAssetType('None')}} className='cross' />
         </div>
         <div className='assign-asset'>
           <div style={{fontWeight:'bold'}}>Assign Asset</div>
@@ -26,7 +27,7 @@ import Modal from './Modal';
           {setAssetType(e.target.value)
             // setOptions(true)
           }}>
-            <option value="All" >All</option>
+            <option value="None" >None</option>
             <option value="Laptop">Laptop</option>
             <option value="Mouse">Mouse</option>
             <option value="Pen Drive">Pen Drive</option>

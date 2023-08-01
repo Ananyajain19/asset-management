@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import { useAuth } from '../AuthContext';
 import search from '../images/search.jpg'
@@ -8,12 +8,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import plus from '../images/plus.png'
 import Modal from './Modal';
 import ToggleButton from '@mui/material/ToggleButton';
+import edit from '../images/Edit.png'
+import del from '../images/Delete.png'
+import DeleteAsset from './EditAsset';
 
 
-
- function AddAsset({setButton,assetType,setAssetType, actionButton,setActionButton }){
-
-   
+ function AddAsset({setButton,assetType,setAssetType}){
+  
     return(
       <div className='new-asset'>
         <div className='new-asset-header'>
@@ -41,24 +42,40 @@ import ToggleButton from '@mui/material/ToggleButton';
     )
  }
 
- function ActionMenu(){
-  return(
+ function ActionMenu({ id, asset ,showDeleteModal,setShowDeleteModal}) {
+  
 
-    <div style={{backgroundColor:'green'}}>
-    hello
-   </div>
-     )
- }
-
-function AssetEntry ({getAsset,actionButton,setActionButton}) {
-  function handleAction (){
-    if (actionButton) {
-      setActionButton(false)
-    } else {
-      setActionButton(true);
+  const handleDeleteClick = () => {
+    if(showDeleteModal){
+    setShowDeleteModal(false);
     }
-  }
+    else{
+      setShowDeleteModal(true);
+    }
+  };
+
   return (
+    <div className='action-dropdown'>
+      <div className='edit-option'>
+        <img src={edit} alt="edit" style={{ height: '20px' }} />
+        <div>Edit </div>
+      </div>
+      <div className='delete-option'>
+        <img src={del} alt="delete" style={{ height: '20px' }} />
+        <div onClick={handleDeleteClick}>Delete</div>
+      </div>
+    </div>
+  );
+}
+
+function AssetEntry ({getAsset,actionButton,setActionButton,actionDropdown,setActionDropdown,selectedId,setSelectedId,showDeleteModal,setShowDeleteModal}) {
+  function handleAction(index) {
+    setActionDropdown((prevIndex) => (prevIndex === index ? -1 : index));
+    setActionButton(prev => prev === index ? !actionButton : true);
+  }
+     const {setAssetType}=useAuth();
+  return (
+    <div className='asset-entry-container'>
     <table className='entries-table'>
       <thead>
         <tr>
@@ -75,7 +92,7 @@ function AssetEntry ({getAsset,actionButton,setActionButton}) {
         </tr>
       </thead>
       <tbody>
-        {getAsset.map((value) => (
+        {getAsset.map((value,index) => (
           <tr key={value.id}>
             <td className='asset-make'>{value.brand}</td>
             <td>{value.model}</td>
@@ -86,20 +103,22 @@ function AssetEntry ({getAsset,actionButton,setActionButton}) {
             <td>{value.warrantyExpiryDate}</td>
             <td>{value.assignedTo?value.assignedTo: "Not Assigned"}</td>
             <td>{value.status}</td>
-            <td><ToggleButton style={{height:'20px', width:'15px',textAlign:'center'}} onClick={handleAction}>...</ToggleButton></td>
-          {actionButton  && <ActionMenu/>
-}
+            <td className='toggle-action'>{actionButton && actionDropdown === index && <ActionMenu id= {value.id} asset={value.AssetType} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/>}<ToggleButton style={{height:'20px', width:'15px',textAlign:'center'}} onClick={() => {handleAction(index)
+            setSelectedId(value.id)
+            setAssetType(value.AssetType)
+            }}>...</ToggleButton></td>
+            
             
           </tr>
         ))}
       </tbody>
     </table>
-  
+    </div>
     
     );
 }
 
-function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , setButton,actionButton,setActionButton}) {
+function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , setButton,actionButton,setActionButton,actionDropdown,setActionDropdown,selectedId,setSelectedId,showDeleteModal,setShowDeleteModal}) {
     
   const handleClick = () => {
     if (button) {
@@ -166,7 +185,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
       </div> */}
       
       <div>
-        <AssetEntry getAsset={getAsset} actionButton={actionButton} setActionButton={setActionButton}/>
+        <AssetEntry getAsset={getAsset} actionDropdown={actionDropdown} setActionDropdown={setActionDropdown} actionButton={actionButton} setActionButton={setActionButton} selectedId={selectedId} setSelectedId={setSelectedId} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/>
        
       </div>
 
@@ -176,8 +195,8 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
 
 const AssetsList = () => {
   // const [input , setInput ] = useState('')
-     
-    const {getAsset ,input ,setInput ,checked , setChecked,button,setButton,assetType,setAssetType,actionButton,setActionButton} = useAuth()
+  const [actionDropdown , setActionDropdown]= useState(-1);
+    const {getAsset ,input ,setInput ,checked , setChecked,button,setButton,assetType,setAssetType,actionButton,setActionButton,selectedId,setSelectedId,showDeleteModal,setShowDeleteModal} = useAuth()
     console.log(getAsset)
     if(!getAsset){
       return(
@@ -189,10 +208,13 @@ const AssetsList = () => {
     <div>
       <Navbar />
       <div className='main'>
-      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton} actionButton={actionButton} setActionButton={setActionButton}/>
+      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton} actionButton={actionButton} setActionButton={setActionButton} actionDropdown={actionDropdown} setActionDropdown={setActionDropdown} selectedId={selectedId} setSelectedId={setSelectedId} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/>
       </div>
       <div className='modal'>
-      {button && <AddAsset setButton={setButton} assetType={assetType} setAssetType={setAssetType} actionButton={actionButton} setActionButton={setActionButton} />}
+      {button && <AddAsset setButton={setButton} assetType={assetType} setAssetType={setAssetType} actionButton={actionButton} setActionButton={setActionButton}  />}
+      </div>
+      <div style={{zIndex:'12'}}>
+      {showDeleteModal && <DeleteAsset />}
       </div>
     </div>
   );

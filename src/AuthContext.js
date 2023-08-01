@@ -19,8 +19,9 @@ export function AuthProvider({ children }) {
    const [assetType , setAssetType] = useState ('none')
    const [formData, setFormData] = useState({});
    const [actionButton,setActionButton]=useState(false);
-  
+   const[selectedId , setSelectedId] = useState('')
 
+   const [showDeleteModal, setShowDeleteModal] = useState(false);
   
     //  const [Options , setOptions] = useState (false)
    useEffect(() => {
@@ -104,7 +105,7 @@ useEffect(() => {
   return () => {
     clearTimeout(timer);
   };
-}, [token,input,checked]);
+}, [token,input,checked, showDeleteModal]);
 
 
  
@@ -114,7 +115,7 @@ useEffect(() => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput ,checked ,setChecked , button , setButton,assetType,setAssetType,formData,setFormData,actionButton,setActionButton}}>
+    <AuthContext.Provider value={{ token, saveToken, clearToken ,assetInfo, navigate , getAsset ,input , setInput ,checked ,setChecked , button , setButton,assetType,setAssetType,formData,setFormData,actionButton,setActionButton,selectedId,setSelectedId,showDeleteModal,setShowDeleteModal}}>
       {children}
     </AuthContext.Provider>
   );

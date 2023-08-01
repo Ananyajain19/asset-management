@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useAuth } from '../AuthContext';
 import Switch from '@mui/material/Switch';
 import './Modal.css'

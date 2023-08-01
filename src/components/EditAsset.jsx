@@ -42,8 +42,10 @@ export default function DeleteAsset({id,asset}) {
   return (
     <div className='delete-asset'>
         <div className='delete-asset-header'>
-          <div className='delete-heading'>Delete</div>
-          <img src={cross} alt="cross"  className='cross' onClick={()=>setShowDeleteModal(false)} />
+          <div className='delete-heading' style={{color:'red'}}>Delete</div>
+          <img src={cross} alt="cross"  className='cross' onClick={()=>{setShowDeleteModal(false)
+          setActionButton(false)
+        }} />
         </div>
         <div className='del-asset'>
           <div style={{fontWeight:'bold'}}>Deletion Reason</div>

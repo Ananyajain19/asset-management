@@ -33,7 +33,7 @@ import ToggleButton from '@mui/material/ToggleButton';
             <option value="pen drive">Pen Drive</option>
             <option value="hard disk">Hard Drive</option>
             <option value="mobile">Mobile</option>
-            <option value="sim">Sim Card</option>
+            <option value="sim" >Sim Card</option>
            </select>
         </div>
         <Modal/>
@@ -41,8 +41,23 @@ import ToggleButton from '@mui/material/ToggleButton';
     )
  }
 
-function AssetEntry ({getAsset}) {
-  
+ function ActionMenu(){
+  return(
+
+    <div style={{backgroundColor:'green'}}>
+    hello
+   </div>
+     )
+ }
+
+function AssetEntry ({getAsset,actionButton,setActionButton}) {
+  function handleAction (){
+    if (actionButton) {
+      setActionButton(false)
+    } else {
+      setActionButton(true);
+    }
+  }
   return (
     <table className='entries-table'>
       <thead>
@@ -56,7 +71,7 @@ function AssetEntry ({getAsset}) {
           <th>Warranty Expires</th>
           <th>Assigned To</th>
           <th>Status</th>
-          <th>Action</th>
+          <th>Action </th>
         </tr>
       </thead>
       <tbody>
@@ -71,7 +86,10 @@ function AssetEntry ({getAsset}) {
             <td>{value.warrantyExpiryDate}</td>
             <td>{value.assignedTo?value.assignedTo: "Not Assigned"}</td>
             <td>{value.status}</td>
-            <td><ToggleButton style={{height:'20px', width:'15px',textAlign:'center'}}>...</ToggleButton></td>
+            <td><ToggleButton style={{height:'20px', width:'15px',textAlign:'center'}} onClick={handleAction}>...</ToggleButton></td>
+          {actionButton  && <ActionMenu/>
+}
+            
           </tr>
         ))}
       </tbody>
@@ -81,7 +99,7 @@ function AssetEntry ({getAsset}) {
     );
 }
 
-function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , setButton}) {
+function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , setButton,actionButton,setActionButton}) {
     
   const handleClick = () => {
     if (button) {
@@ -148,7 +166,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
       </div> */}
       
       <div>
-        <AssetEntry getAsset={getAsset} />
+        <AssetEntry getAsset={getAsset} actionButton={actionButton} setActionButton={setActionButton}/>
        
       </div>
 
@@ -171,7 +189,7 @@ const AssetsList = () => {
     <div>
       <Navbar />
       <div className='main'>
-      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton} />
+      <BigComponent input = {input} setInput = {setInput} getAsset={getAsset} checked={checked} setChecked={setChecked} button={button} setButton={setButton} actionButton={actionButton} setActionButton={setActionButton}/>
       </div>
       <div className='modal'>
       {button && <AddAsset setButton={setButton} assetType={assetType} setAssetType={setAssetType} actionButton={actionButton} setActionButton={setActionButton} />}

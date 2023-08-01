@@ -4,7 +4,7 @@ import cross from '../images/cross.png'
 import './EditAsset.css'
 
 export default function DeleteAsset({id,asset}) {
-    const {token,showDeleteModal,setShowDeleteModal,selectedId, assetType} =useAuth();
+    const {token,showDeleteModal,setShowDeleteModal,selectedId, assetType, setAssetType,actionButton,setActionButton} =useAuth();
     const handleDelete=()=>{
    
     
@@ -36,6 +36,8 @@ export default function DeleteAsset({id,asset}) {
               console.error('Error while making the API request:', error);
             });
             setShowDeleteModal(false)
+            setAssetType("none")
+            setActionButton(false)
         }
   return (
     <div className='delete-asset'>
@@ -47,7 +49,7 @@ export default function DeleteAsset({id,asset}) {
           <div style={{fontWeight:'bold'}}>Deletion Reason</div>
           <input type="text" />
         </div>
-        <button onClick={handleDelete}>Delete</button>
+        <button className='modal-delete' onClick={handleDelete}>Confirm</button>
       </div>
   )
 }

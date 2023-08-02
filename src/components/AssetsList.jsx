@@ -10,17 +10,19 @@ import Modal from './Modal';
 import ToggleButton from '@mui/material/ToggleButton';
 import edit from '../images/Edit.png'
 import del from '../images/Delete.png'
-import DeleteAsset from './EditAsset';
-
+import { DeleteAsset } from './EditAsset';
+import  { Edit} from './EditAsset'
 
  function AddAsset({setButton,assetType,setAssetType}){
-  
+     const {setActionButton} =useAuth()
     return(
       <div className='new-asset'>
         <div className='new-asset-header'>
           <div className='heading'>Asset Details</div>
           <img src={cross} alt="cross" onClick={()=>{setButton(false)
-          setAssetType('none')}} className='cross' />
+          setAssetType('none')
+          setActionButton(false)
+          }} className='cross' />
         </div>
         <div className='assign-asset'>
           <div style={{fontWeight:'bold'}}>Assign Asset</div>
@@ -43,8 +45,8 @@ import DeleteAsset from './EditAsset';
  }
 
  function ActionMenu({ id, asset ,showDeleteModal,setShowDeleteModal}) {
-  
-
+   const {setButton,setActionButton,selectedId,assetType,token,setEditData} =useAuth();
+   
   const handleDeleteClick = () => {
     if(showDeleteModal){
     setShowDeleteModal(false);
@@ -53,16 +55,21 @@ import DeleteAsset from './EditAsset';
       setShowDeleteModal(true);
     }
   };
-
+  const handleEditClick = () => {
+    
+    setButton(true);
+    setActionButton(false);
+    Edit({selectedId,assetType,token,setEditData})
+  };
   return (
     <div className='action-dropdown'>
-      <div className='edit-option'>
-        <img src={edit} alt="edit" style={{ height: '20px' }} />
+      <div className='edit-option' onClick={handleEditClick}>
+        <img src={edit} alt="edit" style={{ height: '20px' }}  />
         <div>Edit </div>
       </div>
-      <div className='delete-option'>
+      <div className='delete-option' onClick={handleDeleteClick}>
         <img src={del} alt="delete" style={{ height: '20px' }} />
-        <div onClick={handleDeleteClick}>Delete</div>
+        <div >Delete</div>
       </div>
     </div>
   );
@@ -126,6 +133,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
     } else {
       setButton(true);
     }
+    
   };
       
   
@@ -168,7 +176,7 @@ function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , 
             
            </select>
            </fieldset>
-           <button className='add-button' onClick={handleClick}><img src={plus} alt="plus"   />Add Asset</button>
+           <button className='add-button' onClick={handleClick}><img src={plus} alt="plus" />Add Asset</button>
         </div>
       </div>
 
@@ -197,13 +205,14 @@ const AssetsList = () => {
   // const [input , setInput ] = useState('')
   const [actionDropdown , setActionDropdown]= useState(-1);
     const {getAsset ,input ,setInput ,checked , setChecked,button,setButton,assetType,setAssetType,actionButton,setActionButton,selectedId,setSelectedId,showDeleteModal,setShowDeleteModal} = useAuth()
-    console.log(getAsset)
+    // console.log(getAsset)
     if(!getAsset){
       return(
           <div> <CircularProgress/> <br />
           Loading...</div>
       )
     }
+    
   return (
     <div>
       <Navbar />

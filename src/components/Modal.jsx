@@ -4,7 +4,7 @@ import Switch from '@mui/material/Switch';
 import './Modal.css'
 export default function  Modal() {
     
-    const {assetType,setAssetType,formData,setFormData,token,setButton} = useAuth()
+    const {assetType,setAssetType,formData,setFormData,token,setButton,editData} = useAuth()
     const handleCancel=()=>{
         setButton(false)
         setAssetType('none')
@@ -23,7 +23,7 @@ export default function  Modal() {
       setFormData({ ...formData, "AssetType": assetType, [name]: value });
     }
     }
-      console.log(formData);
+    //   console.log(formData);
       const handleSave = () => {
         const requestBody = formData;
         fetch('https://devassetapi.remotestate.com/asset-management/user/asset', {
@@ -74,7 +74,7 @@ export default function  Modal() {
             <div className='data-row'>
                 <div>
                 <label>Make</label>
-                <input className='input-class' name='brand' onChange={handleChange}  type="text" placeholder='Enter Brand Name' />
+                <input value={editData?editData[0].brand : ""} className='input-class' name='brand' onChange={handleChange}  type="text" placeholder='Enter Brand Name' />
                 </div>
                 <div>
                     

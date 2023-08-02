@@ -2,9 +2,14 @@ import React from 'react'
 import { useAuth } from '../AuthContext';
 import Switch from '@mui/material/Switch';
 import './Modal.css'
+// import { useEffect} from 'react';
+
 export default function  Modal() {
+     
+   
+    const {assetType,setAssetType,formData,setFormData,token,setButton,editData,selectedId} = useAuth()
+
     
-    const {assetType,setAssetType,formData,setFormData,token,setButton,editData} = useAuth()
     const handleCancel=()=>{
         setButton(false)
         setAssetType('none')
@@ -52,6 +57,41 @@ export default function  Modal() {
             setFormData({})
             setAssetType('none')
       }
+      
+
+      const HandleUpdate = () => {
+       
+       
+
+       
+        fetch('https://devassetapi.remotestate.com/asset-management/user/asset/', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        },
+        body: JSON.stringify({...formData,"id":selectedId}),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Error upadting data');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('API response:', data);
+        })
+        .catch((error) => {
+          console.error('Error upadting data:', error);
+        });
+
+    
+        setButton(false)
+        setFormData({})
+        setAssetType('none')
+    
+  }
+      
    if(assetType==="laptop"){
       return(
         <div className='asset-form'>
@@ -74,7 +114,7 @@ export default function  Modal() {
             <div className='data-row'>
                 <div>
                 <label>Make</label>
-                <input value={editData?editData[0].brand : ""} className='input-class' name='brand' onChange={handleChange}  type="text" placeholder='Enter Brand Name' />
+                <input  className='input-class' name='brand' onChange={handleChange}  type="text" placeholder='Enter Brand Name' />
                 </div>
                 <div>
                     
@@ -134,7 +174,7 @@ export default function  Modal() {
                 </div>
             </div>
             <div className='save-cancel'>
-                <button className='save' onClick={handleSave}>Save</button>
+                <button className='save' onClick={editData?HandleUpdate:handleSave}>{editData?"Update":"Save"}</button>
                 <button className='cancel' onClick={handleCancel}>Cancel</button>
             </div>
         </div>
@@ -191,7 +231,7 @@ export default function  Modal() {
           </div>
           
           <div className='save-cancel'>
-              <button className='save' onClick={handleSave}>Save</button>
+              <button className='save' onClick={editData?HandleUpdate:handleSave}>{editData?"Update":"Save"}</button>
               <button className='cancel' onClick={handleCancel}>Cancel</button>
           </div>
       </div>
@@ -255,7 +295,7 @@ export default function  Modal() {
               
           </div>
           <div className='save-cancel'>
-              <button className='save' onClick={handleSave}>Save</button>
+              <button className='save' onClick={editData?HandleUpdate:handleSave}>{editData?"Update":"Save"}</button>
               <button className='cancel' onClick={handleCancel}>Cancel</button>
           </div>
       </div>
@@ -320,7 +360,7 @@ export default function  Modal() {
               
           </div>
           <div className='save-cancel'>
-              <button className='save' onClick={handleSave}>Save</button>
+              <button className='save' onClick={editData?HandleUpdate:handleSave}>{editData?"Update":"Save"}</button>
               <button className='cancel' onClick={handleCancel}>Cancel</button>
           </div>
       </div>
@@ -402,7 +442,7 @@ export default function  Modal() {
               </div>
           </div>
           <div className='save-cancel'>
-              <button className='save' onClick={handleSave}>Save</button>
+              <button className='save' onClick={editData?HandleUpdate:handleSave}>{editData?"Update":"Save"}</button>
               <button className='cancel' onClick={handleCancel}>Cancel</button>
           </div>
       </div>
@@ -460,7 +500,7 @@ export default function  Modal() {
           </div>
           
           <div className='save-cancel'>
-              <button className='save' onClick={handleSave}>Save</button>
+              <button className='save' onClick={editData?HandleUpdate:handleSave}>{editData?"Update":"Save"}</button>
               <button className='cancel'onClick={handleCancel}>Cancel</button>
           </div>
       </div>

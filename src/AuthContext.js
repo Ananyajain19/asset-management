@@ -21,8 +21,8 @@ export function AuthProvider({ children }) {
    const [actionButton,setActionButton]=useState(false);
    const[selectedId , setSelectedId] = useState('')
    const [showDeleteModal, setShowDeleteModal] = useState(false);
-   const [editData , setEditData] =useState();
-  
+   const [editData , setEditData] =useState({});
+   
     //  const [Options , setOptions] = useState (false)
    useEffect(() => {
     const storedToken = localStorage.getItem('token');

@@ -39,7 +39,7 @@ import  { Edit} from './EditAsset'
             <option value="sim" >Sim Card</option>
            </select>
         </div>
-        <Modal/>
+        <Modal />
       </div>
     )
  }

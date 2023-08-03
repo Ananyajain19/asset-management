@@ -7,6 +7,7 @@ import './AssetLists.css'
 import CircularProgress from '@mui/material/CircularProgress';
 import plus from '../images/plus.png'
 import Modal from './Modal';
+import Form from './Form'
 import ToggleButton from '@mui/material/ToggleButton';
 import edit from '../images/Edit.png'
 import del from '../images/Delete.png'
@@ -39,7 +40,7 @@ import  { Edit} from './EditAsset'
             <option value="sim" >Sim Card</option>
            </select>
         </div>
-        <Modal />
+        <Form />
       </div>
     )
  }
@@ -47,6 +48,32 @@ import  { Edit} from './EditAsset'
  function ActionMenu({ id, asset ,showDeleteModal,setShowDeleteModal}) {
    const {setButton,setActionButton,selectedId,assetType,token,setEditData} =useAuth();
    
+   async function fetchData() {
+    try {
+        var params = {
+            assetId: selectedId,
+            assetType: assetType,
+        }
+        const res = await fetch(`https://devassetapi.remotestate.com/asset-management/user/asset/specifications?${new URLSearchParams(params).toString()}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+        if (!res.ok) {
+            throw new Error('not available');
+        }
+        const dataFromJSON = await res.json();
+        setEditData(dataFromJSON)
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
   const handleDeleteClick = () => {
     if(showDeleteModal){
     setShowDeleteModal(false);
@@ -55,15 +82,19 @@ import  { Edit} from './EditAsset'
       setShowDeleteModal(true);
     }
   };
-  const handleEditClick = () => {
-    
-    setButton(true);
-    setActionButton(false);
-    Edit({selectedId,assetType,token,setEditData})
-  };
+ 
   return (
     <div className='action-dropdown'>
-      <div className='edit-option' onClick={handleEditClick}>
+      <div className='edit-option' onClick={async()=>{
+           try{
+            await fetchData();
+          setButton(true);
+          setActionButton(false);
+          }catch(err){
+            console.log(err)
+          }
+          
+      }}>
         <img src={edit} alt="edit" style={{ height: '20px' }}  />
         <div>Edit </div>
       </div>
@@ -126,8 +157,9 @@ function AssetEntry ({getAsset,actionButton,setActionButton,actionDropdown,setAc
 }
 
 function BigComponent ({input , setInput ,getAsset ,checked,setChecked,button , setButton,actionButton,setActionButton,actionDropdown,setActionDropdown,selectedId,setSelectedId,showDeleteModal,setShowDeleteModal}) {
-    
+    const {setEditData} =useAuth()
   const handleClick = () => {
+    setEditData()
     if (button) {
       setButton(false)
     } else {

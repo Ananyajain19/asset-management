@@ -35,6 +35,7 @@ select:hover{
     width: 150px;
     background-color: rgb(232, 235, 239);
     border-radius: 4px;
+    margin-bottom: 2px;
 }
 .toggle-button{
     display: flex;

@@ -64,7 +64,7 @@ function Login() {
                 <div className='input'>
                 <label>Email</label>
                 <br/>
-                <input type="email" placeholder='Enter Email Id'    value={email}
+                <input  type="email" placeholder='Enter Email Id'    value={email}
                 onChange={(e) => setEmail(e.target.value)}  style={{height: "30px", width: "220px"}} />
                 </div>
                 <div className='input'>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuth } from '../AuthContext';
+
 import Switch from '@mui/material/Switch';
 import './Modal.css'
 // import { useEffect} from 'react';
@@ -8,8 +9,180 @@ export default function  Modal() {
      
    
     const {assetType,setAssetType,formData,setFormData,token,setButton,editData,selectedId} = useAuth()
+    
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     formState: { errors },
+    //   } = useForm();
+    
+    //   const handleCancel = () => {
+    //     setButton(false);
+    //     setAssetType('none');
+    //     setFormData({});
+    //   };
+    
+    //   const onSubmit = (data) => {
+    //     // Your form submission logic here
+    //     console.log(data);
+    //     if (editData) {
+          
+    //     fetch('https://devassetapi.remotestate.com/asset-management/user/asset/', {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': token,
+    //     },
+    //     body: JSON.stringify({...formData,"id":selectedId}),
+    //   })
+    //     .then((response) => {
+    //       if (!response.ok) {
+    //         throw new Error('Error upadting data');
+    //       }
+    //       return response.json();
+    //     })
+    //     .then((data) => {
+    //       console.log('API response:', data);
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error upadting data:', error);
+    //     });
 
     
+    //     setButton(false)
+    //     setFormData({})
+    //     setAssetType('none')
+    
+    //     } else {
+    //         const requestBody = formData;
+    //                 fetch('https://devassetapi.remotestate.com/asset-management/user/asset', {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         'Authorization':token,
+    //                       'Content-Type': 'application/json',
+                         
+    //                     },
+    //                     body: JSON.stringify(requestBody),
+    //                   })
+    //                     .then((response) => {
+    //                       if (response.ok) {
+                            
+    //                         console.log('Data successfully posted to the API.');
+    //                       } else {
+                            
+    //                         console.error('Failed to post data to the API.');
+    //                       }
+    //                     })
+    //                     .catch((error) => {
+                          
+    //                       console.error('Error while making the API request:', error);
+    //                     });
+    //                     setButton(false)
+    //                     setFormData({})
+    //                     setAssetType('none')
+    //     }
+       
+    //   };
+
+    // return (
+    //     <div className="asset-form">
+    //       <form onSubmit={handleSubmit(onSubmit)}>
+            
+    //         {assetType === "laptop" && (
+    //              <div className='asset-form'>
+    //              <div className='data-row'>
+    //                  <div className='owned'>
+    //              <label>Owned By</label>
+    //              <select {...register('ownedBy', { required: true })}    style={{marginTop:'4px', border: '1px solid #fff' ,}} >
+    //                 <option value=""  hidden></option> 
+    //                 <option value="client">Client</option>
+    //                 <option value="remote_state">RemoteState</option>
+    //              </select>
+    //              </div>
+    //              {/* {data.ownedBy === 'client' &&
+    //              <div>
+    //                  <label > Client Name</label>
+    //                  <input {...register('clientName'), { required: true }}   placeholder='Enter Client name'/>
+    //              </div>
+    //              } */}
+    //              </div>
+    //              <div className='data-row'>
+    //                  <div>
+    //                  <label>Make</label>
+    //                  <input  {...register('brand'), { required: true }} placeholder='Enter Brand Name' />
+    //                  </div>
+    //                  <div>
+                         
+    //                  <label>Model</label>
+    //                  <input {...register('model'), { required: true }} placeholder='Enter Model Number' />
+    //                  </div>
+    //              </div>
+    //              <div className='data-row'>
+    //                  <div>
+    //                  <label>Serial Number</label>
+    //                  <input {...register('serialNo'), { required: true }} placeholder='Enter Serial Number' />
+    //                  </div>
+    //                  <div>
+    //                  <label>Series</label>
+    //                  <input {...register('series'), { required: true }} placeholder='Enter Series'/>
+    //                  </div>
+    //              </div>
+    //              <div className='data-row'>
+    //                  <div>
+    //                  <label>Warranty Start Date</label>
+    //                  <input type="date" {...register('warrantyStartDate'), { required: true }}  placeholder='mm/dd/yy' />
+    //                  </div>
+    //                  <div>
+    //                  <label>Warranty Expiry Date</label>
+    //                  <input type="date"  {...register('warrantyExpiryDate'), { required: true }}  placeholder='mm/dd/yy'/>
+    //                  </div>
+    //              </div>
+    //              <div className='data-row'>
+    //                  <div>
+    //                  <label>RAM</label>
+    //                  <input {...register('ram'), { required: true }} placeholder='Enter RAM' />
+    //                  </div>
+    //                  <div>
+    //                  <label>Processor</label>
+    //                  <input {...register('processor'), { required: true }}  placeholder='Enter Processor'/>
+    //                  </div>
+    //              </div>
+    //              <div className='data-row'>
+    //                  <div>
+    //                  <label>Screen Resolution</label>
+    //                  <input  {...register('screenResolution'), { required: true }} placeholder='Enter Screen Resolution' />
+    //                  </div>
+    //                  <div>
+    //                  <label>Operating System</label>
+    //                  <input {...register('operatingSystem'), { required: true }} placeholder='Enter Processor'/>
+    //                  </div>
+    //              </div>
+     
+    //              <div className='data-row'>
+    //                  <div>
+    //                  <label>Date of Purchase</label>
+    //                  <input type="date" {...register('purchasedDate'), { required: true }} placeholder='dd-mm-yy' />
+    //                  </div>
+    //                  <div>
+    //                  <label>Charger</label>
+    //                  <div className='toggle-button'>No <Switch name='charger'onChange={(e)=>setFormData({...formData,[e.target.name]:e.target.checked})}/> Yes</div>
+    //                  </div>
+    //              </div>
+            
+    //         <div className="save-cancel">
+    //           <button className="save" type="submit">
+    //             {editData ? "Update" : "Save"}
+    //           </button>
+    //           <button className="cancel" type="button" onClick={handleCancel}>
+    //             Cancel
+    //           </button>
+    //         </div>
+    //         </div>
+    //         )}
+            
+    //         </form>
+    //     </div>
+    //   );
     const handleCancel=()=>{
         setButton(false)
         setAssetType('none')
@@ -92,94 +265,94 @@ export default function  Modal() {
     
   }
       
-   if(assetType==="laptop"){
-      return(
-        <div className='asset-form'>
-            <div className='data-row'>
-                <div className='owned'>
+  if (assetType === "laptop") {
+    return (
+      <div className="asset-form">
+        <div className="data-row">
+          <div className="owned">
             <label>Owned By</label>
-            <select className='select-class' name="ownedBy" onChange={handleChange} value={formData.ownedBy} style={{marginTop:'4px', border: '1px solid #fff' ,}} >
-               <option value="" disabled hidden></option> 
+            <select className='select-class' name='ownedBy' value={formData.ownedBy} id="" style={{marginTop:'4px', border: '1px solid #fff' ,}} onChange={handleChange} >
+               <option value=""  hidden></option> 
                <option value="client">Client</option>
                <option value="remote_state">RemoteState</option>
             </select>
-            </div>
-            {formData.ownedBy === 'client' &&
+          </div>
+          {formData.ownedBy === 'client' &&
             <div>
-                <label > Client Name</label>
-                <input type="text" name='clientName' className='input-class' onChange={handleChange} placeholder='Enter Client name'/>
+               <label > Client Name</label>
+                <input type="text" onChange={handleChange} name='clientName' className='input-class'placeholder='Enter Client name'/>
             </div>
-            }
-            </div>
-            <div className='data-row'>
-                <div>
-                <label>Make</label>
-                <input  className='input-class' name='brand' onChange={handleChange}  type="text" placeholder='Enter Brand Name' />
-                </div>
-                <div>
-                    
-                <label>Model</label>
-                <input type="text" name='model' onChange={handleChange} className='input-class'  placeholder='Enter Model Number' />
-                </div>
-            </div>
-            <div className='data-row'>
-                <div>
-                <label>Serial Number</label>
-                <input type="text" name='serialNo' onChange={handleChange} className='input-class'  placeholder='Enter Serial Number' />
-                </div>
-                <div>
-                <label>Series</label>
-                <input type="text" className='input-class' onChange={handleChange} name='series' placeholder='Enter Series'/>
-                </div>
-            </div>
-            <div className='data-row'>
-                <div>
-                <label>Warranty Start Date</label>
-                <input type="date" className='input-class' onChange={handleChange} name='warrantyStartDate' placeholder='mm/dd/yy' />
-                </div>
-                <div>
-                <label>Warranty Expiry Date</label>
-                <input type="date" name='warrantyExpiryDate' onChange={handleChange} className='input-class'  placeholder='mm/dd/yy'/>
-                </div>
-            </div>
-            <div className='data-row'>
-                <div>
-                <label>RAM</label>
-                <input type="text" name='ram' onChange={handleChange} className='input-class' placeholder='Enter RAM' />
-                </div>
-                <div>
-                <label>Processor</label>
-                <input type="text" name='processor' onChange={handleChange} className='input-class'  placeholder='Enter Processor'/>
-                </div>
-            </div>
-            <div className='data-row'>
-                <div>
-                <label>Screen Resolution</label>
-                <input type="text" onChange={handleChange} name='screenResolution' className='input-class' placeholder='Enter Screen Resolution' />
-                </div>
-                <div>
-                <label>Operating System</label>
-                <input type="text" className='input-class' onChange={handleChange} name='operatingSystem' placeholder='Enter Processor'/>
-                </div>
-            </div>
-
-            <div className='data-row'>
-                <div>
-                <label>Date of Purchase</label>
-                <input type="date" name='purchasedDate' className='input-class' onChange={handleChange}  placeholder='dd-mm-yy' />
-                </div>
-                <div>
-                <label>Charger</label>
-                <div className='toggle-button'>No <Switch name='charger'onChange={(e)=>setFormData({...formData,[e.target.name]:e.target.checked})}/> Yes</div>
-                </div>
-            </div>
-            <div className='save-cancel'>
-                <button className='save' onClick={editData?HandleUpdate:handleSave}>{editData?"Update":"Save"}</button>
-                <button className='cancel' onClick={handleCancel}>Cancel</button>
-            </div>
+          }
         </div>
-      )
-   }
+        <div className="data-row">
+          <div>
+            <label>Make</label>
+            <input className="input-class" name="brand" onChange={handleChange} type="text" placeholder='Enter Brand Name' />
+          </div>
+          <div>
+  
+            <label>Model</label>
+            <input type="text" name="model" onChange={handleChange} className="input-class" placeholder='Enter Model Number' />
+          </div>
+        </div>
+        <div className="data-row">
+          <div>
+            <label>Serial Number</label>
+            <input type="text" name="serialNo" onChange={handleChange} className="input-class" placeholder='Enter Serial Number' />
+          </div>
+          <div>
+            <label>Series</label>
+            <input type="text" className="input-class" onChange={handleChange} name="series" placeholder='Enter Series' />
+          </div>
+        </div>
+        <div className="data-row">
+          <div>
+            <label>Warranty Start Date</label>
+            <input type="date" className="input-class" onChange={handleChange} name="warrantyStartDate" placeholder='mm/dd/yy' />
+          </div>
+          <div>
+            <label>Warranty Expiry Date</label>
+            <input type="date" name="warrantyExpiryDate" onChange={handleChange} className="input-class" placeholder='mm/dd/yy' />
+          </div>
+        </div>
+        <div className="data-row">
+          <div>
+            <label>RAM</label>
+            <input type="text" name="ram" onChange={handleChange} className="input-class" placeholder='Enter RAM' />
+          </div>
+          <div>
+            <label>Processor</label>
+            <input type="text" name="processor" onChange={handleChange} className="input-class" placeholder='Enter Processor' />
+          </div>
+        </div>
+        <div className="data-row">
+          <div>
+            <label>Screen Resolution</label>
+            <input type="text" onChange={handleChange} name="screenResolution" className="input-class" placeholder='Enter Screen Resolution' />
+          </div>
+          <div>
+            <label>Operating System</label>
+            <input type="text" className="input-class" onChange={handleChange} name="operatingSystem" placeholder='Enter Processor' />
+          </div>
+        </div>
+        <div className="data-row">
+          <div>
+            <label>Date of Purchase</label>
+            <input type="date" name="purchasedDate" className="input-class" onChange={handleChange} placeholder='dd-mm-yy' />
+          </div>
+          <div>
+            <label>Charger</label>
+            <div className="toggle-button">No <Switch name="charger" onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.checked })} /> Yes</div>
+          </div>
+        </div>
+        <div className="save-cancel">
+          <button className="save" onClick={editData ? HandleUpdate : handleSave}>{editData ? "Update" : "Save"}</button>
+          <button className="cancel" onClick={handleCancel}>Cancel</button>
+        </div>
+      </div>
+    )
+  }
+  
    if(assetType==="mouse"){
     return(
       <div className='asset-form'>
@@ -506,4 +679,5 @@ export default function  Modal() {
       </div>
     )
  }
+ 
 }
